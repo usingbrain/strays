@@ -1,0 +1,8 @@
+{
+  "name": "strays",
+  "scripts": {
+    "dev": "cd ./server && nodemon index.js",
+    "migrate:up": "cd ./server/db && npx knex migrate:up",
+    "migrate:down": "cd ./server/db && npx knex migrate:down"
+  }
+}
