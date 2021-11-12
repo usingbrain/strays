@@ -21,7 +21,7 @@ exports.up = function (knex) {
     })
     .createTable('feedings', function (table) {
       table.increments('id');
-      table.timestamp('created_at').defaultTo(knex.fn.now());
+      table.datetime('date').defaultTo(knex.fn.now());
       table.integer('spot_id').unsigned().notNullable();
       table.foreign('spot_id').references('id').inTable('spots');
       table.integer('user_id').unsigned().notNullable();
