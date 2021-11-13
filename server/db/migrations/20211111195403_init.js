@@ -1,5 +1,6 @@
 exports.up = function (knex) {
   return knex.schema
+    .withSchema('public')
     .createTable('spots', function (table) {
       table.increments('id');
       table.float('lat');
