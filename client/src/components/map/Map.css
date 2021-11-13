@@ -1,0 +1,8 @@
+* {
+  box-sizing: border-box;
+}
+
+.map {
+  height: 80vh;
+  width: 80vw;
+}
