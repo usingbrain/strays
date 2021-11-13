@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import ReactMapGL, { Marker, Popup } from 'react-map-gl';
+import ReactMapGL, { Source, Layer } from 'react-map-gl';
 import './Map.css';
 
-function Map() {
+function Map({geojson}) {
   let startPosition = {};
 
   function geoSuccess(position) {
@@ -33,7 +33,14 @@ function Map() {
     startPosition.long = 13.3781;
   }
 
-  console.log(startPosition);
+  const layerStyle = {
+    id: 'point',
+    type: 'circle',
+    paint: {
+      'circle-radius': 10,
+      'circle-color': '#007cbf',
+    },
+  };
 
   // frontend is not accessing .env right now. This works when token is put in directly
 
@@ -41,11 +48,15 @@ function Map() {
     <div className="map">
       <ReactMapGL
         {...viewport}
-        mapboxApiAccessToken="pk.eyJ1IjoidXNpbmdicmFpbiIsImEiOiJja3Z3czZ5angwaGN4Mm9vZXdtMnB0MGthIn0.NOgkl7tfJTSkwEDcgTovSw"
+        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         width="100%"
         height="100%"
         onViewportChange={(viewport) => setViewport(viewport)}
-      ></ReactMapGL>
+      >
+        <Source id="spots" type="geojson" data={geojson}>
+          <Layer {...layerStyle} />
+        </Source>
+      </ReactMapGL>
     </div>
   );
 }
