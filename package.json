@@ -5,5 +5,9 @@
     "migrate:up": "cd ./server/db && npx knex migrate:up",
     "migrate:down": "cd ./server/db && npx knex migrate:down",
     "seed": "cd ./server/db && npx knex seed:run"
+  },
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-plugin-react": "^7.27.0"
   }
 }
