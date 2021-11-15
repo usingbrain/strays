@@ -3,6 +3,7 @@
   "scripts": {
     "dev": "cd ./server && nodemon index.js",
     "migrate:up": "cd ./server/db && npx knex migrate:up",
-    "migrate:down": "cd ./server/db && npx knex migrate:down"
+    "migrate:down": "cd ./server/db && npx knex migrate:down",
+    "seed": "cd ./server/db && npx knex seed:run"
   }
 }
