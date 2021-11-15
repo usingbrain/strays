@@ -1,7 +1,15 @@
 const db = require('../db/index');
 
+exports.addNewUser = (user) => {
+  return db.insert(user).into('users').returning('*');
+};
+
 exports.getAllFeedingSpots = () => {
   return db.select('*').from('spots');
+};
+
+exports.addNewFeedingSpot = (spot) => {
+  return db.insert(spot).into('spots').returning('*');
 };
 
 // join? And get full objects not just IDs
@@ -25,4 +33,8 @@ exports.getLastFeedingForStray = (stray) => {
 
 exports.getAllStraysForSpot = (spotId) => {
   return db.select().from('strays').where('spot_id', spotId);
+};
+
+exports.addNewStray = (stray) => {
+  return db.insert(stray).into('strays').returning('*');
 };
