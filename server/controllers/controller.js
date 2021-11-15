@@ -47,9 +47,13 @@ exports.addNewSpot = async (req, res) => {
 };
 
 exports.newFeeding = async (req, res) => {
-  // try {
-  // } catch (error) {
-  //   res.status(500);
-  //   console.error(error);
-  // }
+  try {
+    const { spot_id, user_id } = req.body;
+    const newFeeding = await service.addNewFeeding({ spot_id, user_id });
+    res.status(201);
+    res.send(newFeeding);
+  } catch (error) {
+    res.status(500);
+    console.error(error);
+  }
 };

@@ -38,3 +38,7 @@ exports.getAllStraysForSpot = (spotId) => {
 exports.addNewStray = (stray) => {
   return db.insert(stray).into('strays').returning('*');
 };
+
+exports.addNewFeeding = (feeding) => {
+  return db.insert(feeding).into('feedings').returning('*');
+};

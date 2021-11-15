@@ -6,6 +6,7 @@ const controller = require('./controllers/controller');
 router.get('/spots', controller.getAllSpots);
 router.post('/spots', controller.addNewSpot);
 router.post('/users', controller.addNewUser);
+router.post('/feedings', controller.newFeeding);
 
 // router.post('/users', async (req, res) => {
 //   try {
