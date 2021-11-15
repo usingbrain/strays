@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ReactMapGL, { Source, Layer } from 'react-map-gl';
+import ReactMapGL, { GeolocateControl, Source, Layer } from 'react-map-gl';
 import './Map.css';
 
 function Map({geojson}) {
@@ -33,17 +33,21 @@ function Map({geojson}) {
     startPosition.long = 13.3781;
   }
 
+  const geolocateControlStyle= {
+    right: 10,
+    bottom: 50
+  };
+
   const layerStyle = {
     id: 'point',
     type: 'circle',
     paint: {
-      'circle-radius': 10,
+      'circle-radius': 7,
       'circle-color': '#007cbf',
     },
   };
 
-  // frontend is not accessing .env right now. This works when token is put in directly
-
+  // display current location (mapbox has this functionality)
   return (
     <div className="map">
       <ReactMapGL
@@ -53,6 +57,12 @@ function Map({geojson}) {
         height="100%"
         onViewportChange={(viewport) => setViewport(viewport)}
       >
+      <GeolocateControl
+        style={geolocateControlStyle}
+        positionOptions={{enableHighAccuracy: true}}
+        trackUserLocation={true}
+        auto
+      />
         <Source id="spots" type="geojson" data={geojson}>
           <Layer {...layerStyle} />
         </Source>

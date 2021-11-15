@@ -3,6 +3,7 @@ import api from './ApiService';
 import './App.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Map from './components/map/Map';
+import Dashboard from './components/dashboard/Dashboard';
 
 function App() {
   const [spots, setSpots] = useState([]);
@@ -26,14 +27,12 @@ function App() {
       "geometry": { "type": "Point", "coordinates": [spot.long, spot.lat] },
     })
   );
-  console.log('geojson: ', geojson);
-
 
 
   return (
     <div className="App">
       <Map geojson={geojson} />
-      <p>app works</p>
+      <Dashboard />
     </div>
   );
 }
