@@ -9,5 +9,3 @@ exports.seed = function (knex) {
       return knex('spots').insert(spotsData);
     });
 };
-
-// .then(() => {})
