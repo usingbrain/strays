@@ -3,17 +3,26 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import api from './ApiService';
+import { OpenContext } from './OpenContext';
 import './App.css';
 import Map from './components/map/Map';
+// import CatsPage from './components/CatsPage';
 import Dashboard from './components/dashboard/Dashboard';
+import Popup from './components/Popup/Popup';
 
 function App() {
   const [spots, setSpots] = useState([]);
+  const [strays, setStrays] = useState([]);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     (async function getAll() {
       const spots = await api.getSpots();
       setSpots(spots);
+    })();
+    (async function getAll() {
+      const strays = await api.getStrays();
+      setStrays(strays);
     })();
   }, []);
 
@@ -31,16 +40,21 @@ function App() {
 
   return (
     <div className="App">
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <Map geojson={geojson} />
-          </Route>
-          <Route path="/cats">{/* <Cats /> */}</Route>
-          <Route path="/chats">{/* <Chats /> */}</Route>
-        </Switch>
+      {open && <Popup handleClick={setOpen} />}
+      <OpenContext.Provider value={{ open, setOpen }}>
+        {/* <Router>
+          <Switch>
+            <Route exact path="/"> */}
+        <Map geojson={geojson} />
+        {/* </Route>
+            <Route path="/cats">
+              <CatsPage />
+            </Route>
+            <Route path="/chats"><Chats /></Route>
+          </Switch> */}
         <Dashboard />
-      </Router>
+        {/*  </Router> */}
+      </OpenContext.Provider>
     </div>
   );
 }
