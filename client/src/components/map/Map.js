@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ReactMapGL, { GeolocateControl, Source, Layer } from 'react-map-gl';
 import './Map.css';
 
-function Map({geojson}) {
+function Map({ geojson }) {
   let startPosition = {};
 
   function geoSuccess(position) {
@@ -14,15 +14,15 @@ function Map({geojson}) {
       zoom: 12,
     });
   }
+  function geoError(error) {
+    console.error('Error code ' + error.code + ': ' + error.message);
+  }
 
   const [viewport, setViewport] = useState({
     latitude: startPosition.lat,
     longitude: startPosition.long,
     zoom: 12,
   });
-  function geoError(error) {
-    console.error('Error code ' + error.code + ': ' + error.message);
-  }
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
@@ -33,19 +33,24 @@ function Map({geojson}) {
     startPosition.long = 13.3781;
   }
 
-  const geolocateControlStyle= {
+  const geolocateControlStyle = {
     right: 10,
-    bottom: 50
+    bottom: 50,
   };
 
   const layerStyle = {
     id: 'point',
     type: 'circle',
     paint: {
-      'circle-radius': 7,
+      'circle-radius': 5,
       'circle-color': '#007cbf',
     },
   };
+
+  // gets click coordinates
+  function onClickMap(evt) {
+    console.log(evt.lngLat);
+  }
 
   // display current location (mapbox has this functionality)
   return (
@@ -56,13 +61,14 @@ function Map({geojson}) {
         width="100%"
         height="100%"
         onViewportChange={(viewport) => setViewport(viewport)}
+        onClick={onClickMap}
       >
-      <GeolocateControl
-        style={geolocateControlStyle}
-        positionOptions={{enableHighAccuracy: true}}
-        trackUserLocation={true}
-        auto
-      />
+        <GeolocateControl
+          style={geolocateControlStyle}
+          positionOptions={{ enableHighAccuracy: true }}
+          trackUserLocation={true}
+          auto
+        />
         <Source id="spots" type="geojson" data={geojson}>
           <Layer {...layerStyle} />
         </Source>
