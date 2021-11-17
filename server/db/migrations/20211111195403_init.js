@@ -11,6 +11,7 @@ exports.up = function (knex) {
       table.string('name').notNullable();
       table.string('sex');
       table.string('colour');
+      table.string('img_url');
       table.integer('spot_id').unsigned().notNullable();
       table.foreign('spot_id').references('id').inTable('spots');
     })

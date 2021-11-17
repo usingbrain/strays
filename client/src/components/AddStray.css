@@ -1,0 +1,9 @@
+.add {
+  box-sizing: border-box;
+  padding: 5px;
+  height: 100%;
+}
+
+.create {
+  background-color: white;
+}

@@ -39,9 +39,11 @@ exports.getAllStraysForSpot = (spotId) => {
 };
 
 exports.addNewStray = (stray) => {
+  console.log({ stray });
   return db.insert(stray).into('strays').returning('*');
 };
 
 exports.addNewFeeding = (feeding) => {
+  // find the right spot, update the date to the new one
   return db.insert(feeding).into('feedings').returning('*');
 };

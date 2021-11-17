@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './AddStray.css';
 
 function AddStray({ addStrayToDB }) {
   const [name, setName] = useState('');
@@ -7,26 +8,25 @@ function AddStray({ addStrayToDB }) {
   const [file, setFile] = useState('');
   const [selectedFile, setSelectedFile] = useState();
   const [previewSource, setPreviewSource] = useState('');
+  const [img_url, setImgUrl] = useState('');
 
   // file input functions from a tutorial by https://github.com/jamesqquick/cloudinary-react-and-node/
   function handleSubmit(e) {
     e.preventDefault();
     const reader = new FileReader();
-    console.log(selectedFile);
     reader.readAsDataURL(selectedFile);
     reader.onloadend = () => {
-      console.log('upload data: ', reader.result);
       uploadImage(reader.result);
     };
-    addStrayToDB({ name, sex, colour });
+    addStrayToDB({ name, sex, colour, img_url, spot_id: 8 });
     setName('');
     setSex();
     setColour();
+    setImgUrl('');
   }
 
   function handleFileInput(e) {
     const fileObject = e.target.files[0];
-    console.log(fileObject);
     previewFile(fileObject);
     setSelectedFile(fileObject);
     setFile(e.target.value);
@@ -49,9 +49,9 @@ function AddStray({ addStrayToDB }) {
         body: JSON.stringify({ data: base64EncodedImage }),
         headers: { 'Content-Type': 'application/json' },
       }).then((response) => {
-        console.log(response);
         response.json().then((imgUrl) => {
           console.log(imgUrl);
+          setImgUrl(imgUrl);
         });
       });
       setFile('');
@@ -63,9 +63,13 @@ function AddStray({ addStrayToDB }) {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="add">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col justify-evenly p-2.5"
+      >
         <input
+          className="p-1.5"
           required
           type="text"
           placeholder="Name your stray!"
@@ -75,25 +79,30 @@ function AddStray({ addStrayToDB }) {
 
         <p>selecting a sex is optional</p>
 
-        <input
-          type="radio"
-          id="fe"
-          name="sex"
-          value="female"
-          onChange={(event) => setSex(event.target.value)}
-        />
-        <label htmlFor="fe">female</label>
+        <div>
+          <input
+            type="radio"
+            id="fe"
+            name="sex"
+            value="female"
+            onChange={(event) => setSex(event.target.value)}
+          />
+          <label htmlFor="fe">female</label>
+        </div>
+
+        <div>
+          <input
+            type="radio"
+            id="male"
+            name="sex"
+            value="male"
+            onChange={(event) => setSex(event.target.value)}
+          />
+          <label htmlFor="male">male</label>
+        </div>
 
         <input
-          type="radio"
-          id="male"
-          name="sex"
-          value="male"
-          onChange={(event) => setSex(event.target.value)}
-        />
-        <label htmlFor="male">male</label>
-
-        <input
+          className="p-1.5"
           list="colours"
           id="colourList"
           name="colourList"
@@ -116,7 +125,9 @@ function AddStray({ addStrayToDB }) {
         {previewSource && (
           <img src={previewSource} alt="chosen" style={{ height: '150px' }} />
         )}
-        <button type="submit">Create stray profile</button>
+        <button className="create rounded p-2.5 w-3/5" type="submit">
+          Create stray profile
+        </button>
       </form>
     </div>
   );

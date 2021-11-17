@@ -33,9 +33,14 @@ exports.addNewUser = async (req, res) => {
 
 exports.addNewStray = async (req, res) => {
   try {
-    console.log(req.body);
-    const { name, sex, colour, spot_id } = req.body;
-    const newStray = await service.addNewStray({ name, sex, colour, spot_id });
+    const { name, sex, colour, img_url, spot_id } = req.body;
+    const newStray = await service.addNewStray({
+      name,
+      sex,
+      colour,
+      img_url,
+      spot_id,
+    });
     res.status(201);
     res.send(newStray);
   } catch (error) {

@@ -1,3 +1,18 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .btn {
   display: inline-block;
+  /* padding: 20px; */
+}
+
+.feed {
+  background-color: #5ab1bb;
+}
+
+.stray {
+  background-color: #e07a5f;
 }

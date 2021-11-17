@@ -1,9 +1,9 @@
 .pop {
   height: 300px;
   width: 300px;
-  background-color: aquamarine;
+  background-color: #e07a5f;
   position: absolute;
-  top: 250px;
-  left: 250px;
+  top: 10%;
+  left: 10%;
   z-index: 3;
 }
