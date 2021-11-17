@@ -5,7 +5,16 @@ exports.getAllSpots = async (req, res) => {
     const spots = await service.getAllFeedingSpots();
     res.send(spots);
   } catch (error) {
-    res.status(500);
+    res.sendStatus(500);
+    console.error(error);
+  }
+};
+exports.getAllStrays = async (req, res) => {
+  try {
+    const strays = await service.getAllStrays();
+    res.send(strays);
+  } catch (error) {
+    res.sendStatus(500);
     console.error(error);
   }
 };
@@ -17,19 +26,20 @@ exports.addNewUser = async (req, res) => {
     res.status(201);
     res.send(newUser);
   } catch (error) {
-    res.status(500);
+    res.sendStatus(500);
     console.error(error);
   }
 };
 
 exports.addNewStray = async (req, res) => {
   try {
-    const { name, sex, colour } = req.body;
-    const newStray = await service.addNewStray({ name, sex, colour });
+    console.log(req.body);
+    const { name, sex, colour, spot_id } = req.body;
+    const newStray = await service.addNewStray({ name, sex, colour, spot_id });
     res.status(201);
     res.send(newStray);
   } catch (error) {
-    res.status(500);
+    res.sendStatus(500);
     console.error(error);
   }
 };
@@ -41,7 +51,7 @@ exports.addNewSpot = async (req, res) => {
     res.status(201);
     res.send(newSpot);
   } catch (error) {
-    res.status(500);
+    res.sendStatus(500);
     console.error(error);
   }
 };
@@ -53,7 +63,7 @@ exports.newFeeding = async (req, res) => {
     res.status(201);
     res.send(newFeeding);
   } catch (error) {
-    res.status(500);
+    res.sendStatus(500);
     console.error(error);
   }
 };

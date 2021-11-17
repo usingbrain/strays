@@ -10,3 +10,20 @@ function fetchRequest(path, options) {
 exports.getSpots = () => {
   return fetchRequest('/spots');
 };
+exports.getStrays = () => {
+  return fetchRequest('/strays');
+};
+exports.addStray = (body) => {
+  return fetchRequest('/strays', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+};
+exports.addFeeding = (body) => {
+  return fetchRequest('/feedings', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+};
