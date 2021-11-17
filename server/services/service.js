@@ -7,6 +7,9 @@ exports.addNewUser = (user) => {
 exports.getAllFeedingSpots = () => {
   return db.select('*').from('spots');
 };
+exports.getAllStrays = () => {
+  return db.select('*').from('strays');
+};
 
 exports.addNewFeedingSpot = (spot) => {
   return db.insert(spot).into('spots').returning('*');
